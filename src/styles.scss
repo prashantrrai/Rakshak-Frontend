@@ -1,4 +1,40 @@
+@use 'ngx-toastr/toastr';
+
 body {
     margin: 0;
     padding: 0;
+}
+
+// Override ngx-toastr default styles
+.toast-container .ngx-toastr {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
+}
+
+// Success
+.toast-container .ngx-toastr.toast-success {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+// Error
+.toast-container .ngx-toastr.toast-error {
+    background-color: #f44336;
+    color: #fff;
+}
+
+// Warning
+.toast-container .ngx-toastr.toast-warning {
+    background-color: #ff9800;
+    color: #fff;
+}
+
+// Info
+.toast-container .ngx-toastr.toast-info {
+    background-color: #2196f3;
+    color: #fff;
 }

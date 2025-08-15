@@ -4,11 +4,11 @@
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <input type="email" formControlName="email" placeholder="Email" class="form-control"
-                [ngClass]="{'is-invalid': form.controls.email.invalid && form.controls.email.touched}" />
+                [ngClass]="{'is-invalid': form.get('email')?.invalid && form.get('email')?.touched}" />
 
             <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password"
                 class="form-control"
-                [ngClass]="{'is-invalid': form.controls.password.invalid && form.controls.password.touched}" />
+                [ngClass]="{'is-invalid': form.get('password')?.invalid && form.get('password')?.touched}" />
 
             <div class="form-row-between">
                 <div class="form-check remember-me">
@@ -26,7 +26,7 @@
             <button type="submit" class="login-btn" [disabled]="form.invalid">Login</button>
 
             <p class="register-text">
-                Not registered? <a routerLink="/register">Create an account</a>
+                Not registered? <a routerLink="/auth/registration">Create an account</a>
             </p>
         </form>
     </div>

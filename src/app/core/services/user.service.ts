@@ -6,16 +6,16 @@ import { ApiService } from './api.service';
 export class UserService {
     constructor(private api: ApiService) { }
 
-    registerUser(payload: any): Observable<any> {
-        return this.api.post<any>('user/registeruser', payload);
+    registerUser(email: string): Observable<any> {
+        return this.api.post<any>('user/registeruser', { email });
     }
 
     verifyOtp(payload: { email: string; otp: string }): Observable<any> {
         return this.api.post<any>('user/verifyotp', payload);
     }
 
-    resendOtp(payload: { email: string }): Observable<any> {
-        return this.api.post<any>('user/resendotp', payload);
+    resendOtp(email: string): Observable<any> {
+        return this.api.post<any>('user/resendotp', { email });
     }
 
     updateProfile(payload: any): Observable<any> {

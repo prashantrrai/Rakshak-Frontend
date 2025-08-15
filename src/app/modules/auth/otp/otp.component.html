@@ -1,0 +1,17 @@
+<div class="otp-container">
+    <h2>Enter OTP</h2>
+    <p>We have sent a 6-digit OTP to <strong>{{ email }}</strong></p>
+
+    <div class="otp-inputs">
+        <input *ngFor="let ctrl of otpControls.controls; let i = index" type="text" maxlength="1" [formControl]="ctrl"
+            #otpInput (input)="onInputChange(i)" (keydown)="onKeyDown($event, i)" (paste)="onPaste($event)"
+            autocomplete="off" />
+    </div>
+
+    <button class="submit-btn" (click)="submitOtp()" [disabled]="!isOtpComplete()">Verify OTP</button>
+
+    <div class="resend-section">
+        <button (click)="resendOtp()" [disabled]="timer > 0">Resend OTP</button>
+        <span *ngIf="timer > 0">Resend available in {{ timer }}s</span>
+    </div>
+</div>
