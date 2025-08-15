@@ -1,0 +1,125 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+}
+
+.login-card {
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .form-control {
+    display: block;
+    width: 100%;
+    box-sizing: border-box; // ensures padding is inside total width
+    padding: 0.75rem 1rem; // top/bottom: 0.75rem, left/right: 1rem
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+    }
+  }
+
+  .remember-me {
+    text-align: left;
+    margin-bottom: 1rem;
+
+    .form-check-input {
+      cursor: pointer;
+    }
+
+    .form-check-label {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #007bff;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: #0056b3;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .register-text {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+
+
+
+.form-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .remember-me {
+    display: flex;
+    align-items: center;
+  }
+
+  .eye-container {
+    margin-bottom: 11px;
+  }
+
+  .toggle-password {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: gold; // yellow eye
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: orange;
+    }
+  }
+}

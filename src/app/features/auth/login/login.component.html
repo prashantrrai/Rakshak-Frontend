@@ -1,0 +1,33 @@
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Login</h2>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <input type="email" formControlName="email" placeholder="Email" class="form-control"
+                [ngClass]="{'is-invalid': form.controls.email.invalid && form.controls.email.touched}" />
+
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password"
+                class="form-control"
+                [ngClass]="{'is-invalid': form.controls.password.invalid && form.controls.password.touched}" />
+
+            <div class="form-row-between">
+                <div class="form-check remember-me">
+                    <input class="form-check-input" type="checkbox" formControlName="rememberMe" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+
+                <div class="eye-container">
+                    <span class="toggle-password" (click)="showPassword = !showPassword" title="Show/Hide Password">
+                        <i class="fa-solid" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </span>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" [disabled]="form.invalid">Login</button>
+
+            <p class="register-text">
+                Not registered? <a routerLink="/register">Create an account</a>
+            </p>
+        </form>
+    </div>
+</div>
