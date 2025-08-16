@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  email = '';
+  email: string = '';
   user: any = {};
   bloodGroups = [
     { id: 1, name: 'A+' },
@@ -28,9 +28,11 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService, private toastr: ToastrService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.email = this.route.snapshot.queryParamMap.get('email') || '';
+    const emailFromStorage = localStorage.getItem("loggedIn-email") || '';
+    this.email = this.route.snapshot.queryParamMap.get('email') || emailFromStorage;
     this.loadUser(this.email);
   }
+
 
   loadUser(email: string) {
     this.userService.getUserByEmail(email).subscribe({

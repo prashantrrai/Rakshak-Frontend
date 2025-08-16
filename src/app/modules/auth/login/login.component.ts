@@ -33,6 +33,7 @@ export class LoginComponent {
       next: (res) => {
         this.toastr.success(res?.message || 'Login successful');
         this.router.navigate(['/user/profile']);
+        localStorage.setItem("loggedIn-email", email);
       },
       error: (err) => {
         this.toastr.error(err.error?.message || 'Please enter valid credentials');
