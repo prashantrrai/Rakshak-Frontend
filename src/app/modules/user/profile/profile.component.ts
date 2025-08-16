@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PdfService } from '../../../core/services/pdf.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
     { id: 8, name: 'O-' },
   ];
 
-  constructor(private userService: UserService, private toastr: ToastrService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private pdfService: PdfService, private toastr: ToastrService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const emailFromStorage = localStorage.getItem("loggedIn-email") || '';
@@ -75,4 +76,16 @@ export class ProfileComponent implements OnInit {
       error: (err) => this.toastr.error(err.error?.message || 'Failed to update profile')
     });
   }
+
+  downloadQR(email: string) {
+    this.pdfService.getStickerPdfByEmail(email).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `VID-Sticker-${Date.now()}.pdf`; // filename
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
 }

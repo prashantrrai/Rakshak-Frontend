@@ -20,7 +20,11 @@ export class ApiService {
     delete<T>(url: string) {
         return this.http.delete<T>(`${this.baseUrl}/${url}`);
     }
+
     getBlob(url: string): Observable<Blob> {
-        return this.http.get(url, { responseType: 'blob' });
+        return this.http.get(`${this.baseUrl}/${url}`, {
+            responseType: 'blob'
+        });
     }
+
 }

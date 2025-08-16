@@ -9,9 +9,9 @@ export class PdfService {
 
     // your endpoint: /api/PDF/GenerateSticker/{email}
     getStickerPdfByEmail(email: string): Observable<Blob> {
-        // Using getBlob above to request blob
-        return this.api.getBlob(`PDF/GenerateSticker/${encodeURIComponent(email)}`);
+        return this.api.getBlob(`pdf/generatesticker/${email}`);
     }
+
 
     // utility to download
     downloadSticker(email: string, filename?: string) {

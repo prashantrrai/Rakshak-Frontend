@@ -44,6 +44,22 @@
             }
         }
 
+        .QR-Wrapper {
+            background: linear-gradient(135deg, #ffffff, #2575fc);
+        }
+
+        .downloadqr-btn {
+            background: linear-gradient(135deg, #ffffff, #2575fc);
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .downloadqr-btn:hover {
+            background: linear-gradient(135deg, #ffffff, #434850);
+        }
+
         .profile-photo {
             position: relative;
             width: 140px;
@@ -69,15 +85,15 @@
                 background: rgba(255, 255, 255, 0.8);
                 color: #333;
                 padding: 6px 12px;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
                 font-weight: 600;
+                width: 100%;
                 border-radius: 20px;
                 cursor: pointer;
-                transition: all 0.3s ease;
 
                 &:hover {
                     background: rgba(255, 255, 255, 1);
-                    transform: scale(1.05);
+                    transition: transform 0.3s ease;
                 }
             }
         }

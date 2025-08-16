@@ -21,6 +21,12 @@
             title="Current account status">
             {{ user.isActive ? 'Active' : 'Inactive' }}
         </div>
+
+        <!-- Download QR Sticket -->
+        <div class="badge QR-Wrapper">
+            <button class="downloadqr-btn" title="Download QR Sticker PDF" (click)="downloadQR(email)">Download QR <i
+                    class="fa-solid fa-circle-down"></i></button>
+        </div>
     </div>
 
     <!-- Right column: editable user details -->

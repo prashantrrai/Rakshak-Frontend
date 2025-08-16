@@ -1,0 +1,12 @@
+<nav class="sidebar">
+    <ul>
+        <ng-container *ngFor="let item of navItems">
+            <li *ngIf="canView(item)" routerLinkActive="active">
+                <a [routerLink]="item.route">
+                    <i class="{{item.icon}}"></i>
+                    <span>{{item.label}}</span>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+</nav>
