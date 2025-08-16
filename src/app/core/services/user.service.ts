@@ -19,12 +19,12 @@ export class UserService {
     }
 
     updateProfile(payload: any): Observable<any> {
-        return this.api.post<any>('user/updateprofile', payload);
+        return this.api.put<any>('user/updateprofile', payload);
         // or put depending on your backend
     }
 
     getUserByEmail(email: string): Observable<any> {
-        return this.api.get<any>('user/getuserbyemail', { email });
+        return this.api.get<any>(`user/getuserbyemail?email=${email}`);
     }
 
     getUserByVirtualNumber(virtualNumber: string): Observable<any> {
