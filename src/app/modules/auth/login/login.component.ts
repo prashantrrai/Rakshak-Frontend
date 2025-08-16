@@ -30,12 +30,12 @@ export class LoginComponent {
     const { email, password } = this.form.value;
 
     this.authService.login(email as string, password as string).subscribe({
-      next: () => {
-        this.toastr.success('Login successful', 'Success');
+      next: (res) => {
+        this.toastr.success(res?.message || 'Login successful');
         this.router.navigate(['/user/profile']);
       },
-      error: () => {
-        this.toastr.error('Invalid credentials', 'Error');
+      error: (err) => {
+        this.toastr.error(err.error?.message || 'Please enter valid credentials');
       }
     });
   }

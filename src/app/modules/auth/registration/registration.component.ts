@@ -16,7 +16,8 @@ export class RegistrationComponent {
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      acceptTNC: [false, Validators.requiredTrue]
     });
   }
 
