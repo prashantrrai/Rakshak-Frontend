@@ -37,37 +37,19 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getRoleName(roleId: number | undefined) {
-    const roles: Record<number, string> = { 1: 'Admin', 2: 'Operator', 3: 'Driver' };
-    return roles[roleId || 0] || 'Unknown';
-  }
+  // getRoleName(roleId: number | undefined) {
+  //   const roles: Record<number, string> = { 1: 'Admin', 2: 'Operator', 3: 'Driver' };
+  //   return roles[roleId || 0] || 'Unknown';
+  // }
 
-  get dateOfBirthString(): string | null {
-    if (!this.user.dateOfBirth) return null;
-    const dob = new Date(this.user.dateOfBirth);
-    const year = dob.getFullYear();
-    const month = (dob.getMonth() + 1).toString().padStart(2, '0'); // months are 0-based
-    const day = dob.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
-
-
-  onPhotoSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      // Upload logic here
-      const reader = new FileReader();
-      reader.onload = e => this.user.ProfilePhotoUrl = reader.result as string;
-      reader.readAsDataURL(file);
-    }
-  }
-
-  // saveProfile() {
-  //   this.userService.updateProfile(this.user).subscribe({
-  //     next: (res) => this.toastr.success(res?.message || 'Profile updated successfully'),
-  //     error: (err) => this.toastr.error(err.error?.message || 'Failed to update profile')
-  //   });
+  // onPhotoSelected(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     // Upload logic here
+  //     const reader = new FileReader();
+  //     reader.onload = e => this.user.ProfilePhotoUrl = reader.result as string;
+  //     reader.readAsDataURL(file);
+  //   }
   // }
 
   downloadQR(email: string) {
