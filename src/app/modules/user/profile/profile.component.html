@@ -24,13 +24,19 @@
 
         <!-- Download QR Sticket -->
         <div class="badge QR-Wrapper">
-            <button class="downloadqr-btn" title="Download QR Sticker PDF" (click)="downloadQR(email)">Download QR <i
-                    class="fa-solid fa-circle-down"></i></button>
+            <button mat-raised-button color="primary" class="downloadqr-btn" title="Download QR Sticker PDF"
+                (click)="downloadQR(email)">Download QR <i class="fa-solid fa-circle-down"></i></button>
+        </div>
+
+        <!-- Update Profile Button -->
+        <div class="badge">
+            <button mat-raised-button color="primary" class="update-profile-btn" (click)="openDialog()"> Update
+                Profile</button>
         </div>
     </div>
 
     <!-- Right column: editable user details -->
-    <div class="profile-right">
+    <!-- <div class="profile-right">
 
         <div class="form-group">
             <label>
@@ -118,5 +124,5 @@
         <div class="profile-actions">
             <button title="Save all changes made to your profile" (click)="saveProfile()">Save Changes</button>
         </div>
-    </div>
+    </div> -->
 </div>

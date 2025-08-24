@@ -2,31 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { PdfService } from '../../../core/services/pdf.service';
+import { MaterialModule } from '../../../shared/material/material.module';
+import { BLOOD_GROUPS } from '../../../shared/constants/blood-group';
+import { UpdateProfileDialogComponent } from '../update-profile-dialog/update-profile-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule],
+  imports: [MaterialModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
   email: string = '';
   user: any = {};
-  bloodGroups = [
-    { id: 1, name: 'A+' },
-    { id: 2, name: 'A-' },
-    { id: 3, name: 'B+' },
-    { id: 4, name: 'B-' },
-    { id: 5, name: 'AB+' },
-    { id: 6, name: 'AB-' },
-    { id: 7, name: 'O+' },
-    { id: 8, name: 'O-' },
-  ];
+  bloodGroups = BLOOD_GROUPS;
 
-  constructor(private userService: UserService, private pdfService: PdfService, private toastr: ToastrService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private pdfService: PdfService, private toastr: ToastrService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit() {
     const emailFromStorage = localStorage.getItem("loggedIn-email") || '';
@@ -70,12 +63,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  saveProfile() {
-    this.userService.updateProfile(this.user).subscribe({
-      next: (res) => this.toastr.success(res?.message || 'Profile updated successfully'),
-      error: (err) => this.toastr.error(err.error?.message || 'Failed to update profile')
-    });
-  }
+  // saveProfile() {
+  //   this.userService.updateProfile(this.user).subscribe({
+  //     next: (res) => this.toastr.success(res?.message || 'Profile updated successfully'),
+  //     error: (err) => this.toastr.error(err.error?.message || 'Failed to update profile')
+  //   });
+  // }
 
   downloadQR(email: string) {
     this.pdfService.getStickerPdfByEmail(email).subscribe(blob => {
@@ -88,4 +81,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
+      width: '600px',
+      data: { user: this.user }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadUser(this.user.email);
+      }
+    });
+  }
 }

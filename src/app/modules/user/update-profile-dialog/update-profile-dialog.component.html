@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>Update Profile</h2>
+<mat-dialog-content>
+    <form class="update-profile-form">
+
+        <!-- Profile Photo Upload -->
+        <div class="profile-photo text-center mb-3">
+            <img [src]="user.ProfilePhotoUrl || 'https://tse3.mm.bing.net/th/id/OIP.BrIw2jsHGAiKMR-a9OUPbwHaE8?pid=Api&P=0&h=180'"
+                alt="Profile Photo" width="120" height="120" style="border-radius: 50%;">
+            <input type="file" id="profileFile" (change)="onPhotoSelected($event)" hidden>
+            <label for="profileFile" class="upload-btn mat-button">Choose Profile Picture</label>
+        </div>
+
+        <!-- Email (Disabled) -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [value]="user.email" disabled>
+        </mat-form-field>
+
+        <!-- First Name -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="user.firstName" name="firstName">
+        </mat-form-field>
+
+        <!-- Middle Name -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Middle Name</mat-label>
+            <input matInput [(ngModel)]="user.middleName" name="middleName">
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="user.lastName" name="lastName">
+        </mat-form-field>
+
+        <!-- Date of Birth -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="user.dateOfBirth" name="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+
+        <!-- Mobile Number -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput [(ngModel)]="user.mobileNumber" name="mobileNumber">
+        </mat-form-field>
+
+        <!-- Virtual Number (Disabled) -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Virtual Number</mat-label>
+            <input matInput [(ngModel)]="user.virtualNumber" name="virtualNumber" disabled>
+        </mat-form-field>
+
+        <!-- Emergency Contacts -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Emergency Contacts</mat-label>
+            <textarea matInput [(ngModel)]="user.emergencyContacts" name="emergencyContacts" rows="2"></textarea>
+        </mat-form-field>
+
+        <!-- Emergency Message -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Emergency Message</mat-label>
+            <textarea matInput [(ngModel)]="user.emergencyMessage" name="emergencyMessage" rows="2"></textarea>
+        </mat-form-field>
+
+        <!-- Blood Group -->
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Blood Group</mat-label>
+            <mat-select [(ngModel)]="user.bloodGroupId" name="bloodGroupId">
+                <mat-option *ngFor="let bg of bloodGroups" [value]="bg.id">{{ bg.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
+</mat-dialog-actions>
