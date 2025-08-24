@@ -3,6 +3,17 @@
     background: #2c3e50;
     color: white;
     padding-top: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out; // smooth animation
+    z-index: 999;
+}
+
+.sidebar.closed {
+    width: 70px; // collapsed state
 }
 
 .sidebar ul {
@@ -29,4 +40,29 @@
 
 .sidebar i {
     margin-right: 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Hide text smoothly when collapsed */
+.sidebar.closed span {
+    display: none;
+}
+
+/* Hamburger button */
+.hamburger {
+    position: absolute;
+    top: 15px;
+    left: 190px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar.closed~.hamburger {
+    left: 15px;
 }

@@ -24,8 +24,24 @@ export class UpdateProfileDialogComponent {
     this.user = { ...data.user };
   }
 
+  get dateOfBirthString(): string | null {
+    if (!this.user.dateOfBirth) return null;
+
+    const dob = new Date(this.user.dateOfBirth);
+    const year = dob.getFullYear();
+    const month = (dob.getMonth() + 1).toString().padStart(2, '0'); // 0-based
+    const day = dob.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`; // ✅ "2001-05-02"
+  }
+
+
   saveProfile() {
-    this.userService.updateProfile(this.user).subscribe({
+    const payload = {
+      ...this.user,
+      dateOfBirth: this.dateOfBirthString
+    };
+    this.userService.updateProfile(payload).subscribe({
       next: (res) => {
         this.toastr.success(res?.message || 'Profile updated successfully');
         this.dialogRef.close(true);

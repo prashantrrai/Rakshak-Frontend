@@ -17,6 +17,7 @@ interface NavItem {
 })
 export class SidebarComponent {
   @Input() userRole: string = '';
+  isOpen = false; // sidebar initially open
 
   navItems: NavItem[] = [
     { label: 'Dashboard', route: '/admin/dashboard', icon: 'fas fa-home', roles: ['Admin'] }, // Stats
@@ -36,5 +37,9 @@ export class SidebarComponent {
 
   navigate(route: string) {
     this.router.navigate([route]);
+  }
+
+  toggleSidebar() {
+    this.isOpen = !this.isOpen;
   }
 }

@@ -1,12 +1,18 @@
-<nav class="sidebar">
+<!-- Sidebar -->
+<nav class="sidebar" [class.closed]="!isOpen">
     <ul>
         <ng-container *ngFor="let item of navItems">
             <li *ngIf="canView(item)" routerLinkActive="active">
                 <a [routerLink]="item.route">
-                    <i class="{{item.icon}}"></i>
-                    <span>{{item.label}}</span>
+                    <i class="{{ item.icon }}"></i>
+                    <span *ngIf="isOpen">{{ item.label }}</span>
                 </a>
             </li>
         </ng-container>
     </ul>
 </nav>
+
+<!-- Toggle button (Hamburger) -->
+<button class="hamburger" (click)="toggleSidebar()">
+    <i class="fas" [ngClass]="isOpen ? 'fa-times' : 'fa-bars'"></i>
+</button>
