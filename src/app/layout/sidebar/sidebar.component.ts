@@ -22,7 +22,7 @@ export class SidebarComponent {
   navItems: NavItem[] = [
     { label: 'Dashboard', route: '/admin/dashboard', icon: 'fas fa-home', roles: ['Admin'] }, // Stats
     { label: 'Profile', route: '/user/profile', icon: 'fas fa-user' }, // Personal Page
-    { label: 'Users', route: '/admin/users', icon: 'fas fa-users', roles: ['Admin'] }, // All User Grid
+    { label: 'Drivers', route: '/admin/drivers', icon: 'fas fa-users', roles: ['Admin'] }, // All User Grid
     { label: 'Settings', route: '/admin/settings', icon: 'fas fa-cog', roles: ['Admin'] } // Config Setting
   ];
 
