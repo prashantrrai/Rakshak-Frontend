@@ -1,5 +1,5 @@
-<div class="layout">
-    <app-sidebar></app-sidebar>
+<div class="layout" [class.sidebar-closed]="!isOpen">
+    <app-sidebar [(isOpen)]="isOpen"></app-sidebar>
 
     <main class="content">
         <router-outlet></router-outlet>

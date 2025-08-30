@@ -10,4 +10,9 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 })
 export class AppComponent {
   title = 'Rakshak-Frontend';
+  isOpen = false;
+
+  toggleSidebar() {
+    this.isOpen = !this.isOpen;
+  }
 }

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 interface NavItem {
   label: string;
   route: string;
   icon?: string;
-  roles?: string[]; // optional role-based visibility
+  roles?: string[];
 }
 
 @Component({
@@ -16,17 +16,16 @@ interface NavItem {
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  @Input() userRole: string = '';
-  isOpen = false; // sidebar initially open
+  @Input() isOpen = true; // default open
+  @Output() isOpenChange = new EventEmitter<boolean>();
 
   navItems: NavItem[] = [
-    { label: 'Dashboard', route: '/admin/dashboard', icon: 'fas fa-home', roles: ['Admin'] }, // Stats
-    { label: 'Profile', route: '/user/profile', icon: 'fas fa-user' }, // Personal Page
-    { label: 'Drivers', route: '/admin/drivers', icon: 'fas fa-users', roles: ['Admin'] }, // All User Grid
-    { label: 'Settings', route: '/admin/settings', icon: 'fas fa-cog', roles: ['Admin'] } // Config Setting
+    { label: 'Dashboard', route: '/admin/dashboard', icon: 'fas fa-home', roles: ['Admin'] },
+    { label: 'Profile', route: '/user/profile', icon: 'fas fa-user' },
+    { label: 'Drivers', route: '/admin/drivers', icon: 'fas fa-users', roles: ['Admin'] },
+    { label: 'Settings', route: '/admin/settings', icon: 'fas fa-cog', roles: ['Admin'] }
   ];
 
-  // Example: get current user role from localStorage
   currentUserRole = localStorage.getItem('role') || 'Admin';
 
   constructor(private router: Router) { }
@@ -41,5 +40,6 @@ export class SidebarComponent {
 
   toggleSidebar() {
     this.isOpen = !this.isOpen;
+    this.isOpenChange.emit(this.isOpen);
   }
 }

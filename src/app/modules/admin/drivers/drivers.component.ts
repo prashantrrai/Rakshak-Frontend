@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MaterialModule } from '../../../shared/material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,18 +6,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../core/services/admin.service';
 import { UserService } from '../../../core/services/user.service';
+import * as XLSX from 'xlsx'; // Excel export
+import { MaterialModule } from '../../../shared/material/material.module';
 
 @Component({
   selector: 'app-drivers',
   imports: [MaterialModule],
   templateUrl: './drivers.component.html',
-  styleUrl: './drivers.component.scss'
+  styleUrls: ['./drivers.component.scss']
 })
 export class DriversComponent implements OnInit {
   displayedColumns: string[] = [
     'fullName', 'email', 'dateOfBirth', 'bloodGroup', 'status', 'actions'
   ];
   dataSource = new MatTableDataSource<any>([]);
+  filterValue = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,6 +47,23 @@ export class DriversComponent implements OnInit {
     });
   }
 
+  applyFilter(event: Event) {
+    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = this.filterValue;
+  }
+
+  clearFilter() {
+    this.filterValue = '';
+    this.dataSource.filter = '';
+  }
+
+  exportToExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataSource.filteredData);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Drivers');
+    XLSX.writeFile(wb, 'Drivers_List.xlsx');
+  }
+
   mapBloodGroup(id: number): string {
     const groups: any = {
       1: 'A+', 2: 'A-', 3: 'B+', 4: 'B-',
@@ -53,17 +72,9 @@ export class DriversComponent implements OnInit {
     return groups[id] || 'Unknown';
   }
 
-  viewDriver(driver: any) {
-    // this.dialog.open(ViewDriverDialogComponent, { data: driver });
-  }
-
-  editDriver(driver: any) {
-    // const dialogRef = this.dialog.open(EditDriverDialogComponent, { data: driver });
-    // dialogRef.afterClosed().subscribe((updated) => {
-    //   if (updated) this.loadDrivers();
-    // });
-  }
-
+  // Actions
+  viewDriver(driver: any) { }
+  editDriver(driver: any) { }
   deleteDriver(driver: any) {
     if (confirm(`Delete ${driver.fullName}?`)) {
       this.userService.deleteUser(driver.virtualNumber).subscribe({
@@ -75,17 +86,8 @@ export class DriversComponent implements OnInit {
       });
     }
   }
-
-  verifyDriver(driver: any) {
-    // open OTP modal (Material Dialog)
-  }
-
-  showQR(driver: any) {
-    // this.driverService.generateQRCode(driver.virtualNumber).subscribe((res) => {
-    //   this.dialog.open(QRDialogComponent, { data: res.qrCodeBase64 });
-    // });
-  }
-
+  verifyDriver(driver: any) { }
+  showQR(driver: any) { }
   downloadPDF(driver: any) {
     window.open(`/api/Driver/Generate-Driver-Pdf/${driver.virtualNumber}`, '_blank');
   }

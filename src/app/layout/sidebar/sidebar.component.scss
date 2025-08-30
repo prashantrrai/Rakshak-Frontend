@@ -8,12 +8,12 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    transition: width 0.3s ease-in-out; // smooth animation
+    transition: width 0.3s ease-in-out;
     z-index: 999;
 }
 
 .sidebar.closed {
-    width: 70px; // collapsed state
+    width: 70px;
 }
 
 .sidebar ul {
@@ -44,16 +44,15 @@
     text-align: center;
 }
 
-/* Hide text smoothly when collapsed */
 .sidebar.closed span {
     display: none;
 }
 
 /* Hamburger button */
 .hamburger {
-    position: absolute;
+    position: fixed;
     top: 15px;
-    left: 190px;
+    left: 200px;
     background: transparent;
     border: none;
     color: white;

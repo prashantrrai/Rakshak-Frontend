@@ -1,16 +1,22 @@
 .layout {
     display: flex;
     height: 100vh;
+    transition: margin-left 0.3s ease-in-out;
 }
 
-// app-sidebar {
-//     width: 240px;
-//     background: #2c3e50;
-//     color: white;
-// }
+/* Sidebar open state */
+.layout {
+    margin-left: 240px; // same as sidebar open width
+}
+
+/* When sidebar is collapsed */
+.layout.sidebar-closed {
+    margin-left: 70px; // same as sidebar closed width
+}
 
 .content {
     flex: 1;
     padding: 20px;
     background: #f5f6fa;
+    overflow: auto;
 }

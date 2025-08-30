@@ -1,0 +1,48 @@
+.drivers-container {
+    padding: 1rem;
+    overflow-x: auto;
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+
+        .search-field {
+            width: 300px;
+        }
+
+        i {
+            margin-right: 6px;
+        }
+    }
+
+    .badge-active {
+        background: #4caf50;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .badge-inactive {
+        background: #f44336;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .actions button {
+        margin-right: 4px;
+    }
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    min-width: 1000px;
+    /* or based on number of columns */
+}
