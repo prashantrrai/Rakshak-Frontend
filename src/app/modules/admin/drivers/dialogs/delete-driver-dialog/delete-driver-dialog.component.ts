@@ -13,12 +13,4 @@ export class DeleteDriverDialogComponent {
     public dialogRef: MatDialogRef<DeleteDriverDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
-
-  onCancel(): void {
-    this.dialogRef.close(false);
-  }
-
-  onConfirm(): void {
-    this.dialogRef.close(true);
-  }
 }

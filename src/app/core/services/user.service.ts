@@ -35,7 +35,7 @@ export class UserService {
         return this.api.post<any>('user/generatevirtualnumber', { email });
     }
 
-    deleteUser(emailOrId: string): Observable<any> {
-        return this.api.post<any>('user/deleteuser', { identifier: emailOrId });
+    deleteUser(email: string): Observable<any> {
+        return this.api.delete<any>(`user/deleteuser?email=${email}`);
     }
 }

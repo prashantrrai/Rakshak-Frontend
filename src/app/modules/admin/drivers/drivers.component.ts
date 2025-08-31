@@ -119,9 +119,6 @@ export class DriversComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Confirmed delete for:', driver);
-        // TODO: call delete API here
-
         this.userService.deleteUser(result.email).subscribe({
           next: (res) => {
             this.toastr.success(res?.message || 'Driver Deleted Successfully');
