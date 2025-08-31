@@ -69,4 +69,8 @@ export class OtpDriverDialogComponent {
   cancel(): void {
     this.dialogRef.close(null);
   }
+
+  ngOnDestroy() {
+    if (this.timerSub) this.timerSub.unsubscribe();
+  }
 }

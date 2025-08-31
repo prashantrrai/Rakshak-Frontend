@@ -154,7 +154,7 @@ export class DriversComponent implements OnInit {
   openQrDialog(driver: any) {
     this.dialog.open(QrDriverDialogComponent, {
       width: '500px',
-      data: { qrUrl: driver.qrUrl }  // driver.qrUrl from API
+      data: driver
     });
   }
 
