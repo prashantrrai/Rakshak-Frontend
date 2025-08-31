@@ -16,6 +16,7 @@ import { QrDriverDialogComponent } from './dialogs/qr-driver-dialog/qr-driver-di
 import { BLOOD_GROUPS } from '../../../shared/constants/blood-group';
 import { DateOfBirthUtils } from '../../../shared/utility/dateofbirth.utils';
 import { ROLEID_TO_ROLE } from '../../../shared/constants/role';
+import { AddDriverDialogComponent } from './dialogs/add-driver-dialog/add-driver-dialog.component';
 
 @Component({
   selector: 'app-drivers',
@@ -52,6 +53,27 @@ export class DriversComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: () => this.toastr.error('Failed to load drivers')
+    });
+  }
+
+  openAddDriver() {
+    const dialogRef = this.dialog.open(AddDriverDialogComponent, {
+      width: '500px',
+      data: []
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.registerUser(result?.email).subscribe({
+          next: (res) => {
+            this.toastr.success(res?.message || 'User Added successfully');
+            this.loadDrivers();
+          },
+          error: (err) => {
+            this.toastr.error(err.error?.message || 'Failed to Add user');
+          }
+        });
+      }
     });
   }
 
@@ -99,6 +121,16 @@ export class DriversComponent implements OnInit {
       if (result) {
         console.log('Confirmed delete for:', driver);
         // TODO: call delete API here
+
+        this.userService.deleteUser(result.email).subscribe({
+          next: (res) => {
+            this.toastr.success(res?.message || 'Driver Deleted Successfully');
+            this.loadDrivers();
+          },
+          error: (err) => {
+            this.toastr.error(err.error?.message || 'Failed to delete driver');
+          }
+        });
       }
     });
   }
@@ -143,12 +175,12 @@ export class DriversComponent implements OnInit {
 
   getBloodGroupName(id: number): string {
     const group = BLOOD_GROUPS.find(bg => bg.id === id);
-    return group ? group.name : 'Unknown';
+    return group ? group.name : '';
   }
 
   getRoleName(id: number): string {
     const role = ROLEID_TO_ROLE.find(role => role.id === id);
-    return role ? role.name : 'unknown';
+    return role ? role.name : '';
   }
 
   // Actions

@@ -17,11 +17,11 @@ export class ViewDriverDialogComponent {
 
   getBloodGroupName(id: number): string {
     const group = BLOOD_GROUPS.find(bg => bg.id === id);
-    return group ? group.name : 'N/A';
+    return group ? group.name : '';
   }
 
   getRoleName(id: number): string {
     const role = ROLEID_TO_ROLE.find(role => role.id === id);
-    return role ? role.name : 'N/A';
+    return role ? role.name : '';
   }
 }

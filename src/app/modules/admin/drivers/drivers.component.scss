@@ -12,16 +12,22 @@
             width: 300px;
         }
 
-        i,
-        .mat-icon {
-            margin-right: 6px;
-            font-size: 16px; // default toolbar icon size
-        }
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
 
-        .mat-mdc-icon-button {
-            --mdc-icon-button-icon-size: 18px;
-            --mdc-icon-button-size: 36px;
-            --mdc-icon-button-state-layer-size: 36px;
+            button {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+                padding: 4px 12px;
+            }
+
+            i {
+                font-size: 14px;
+            }
         }
     }
 
