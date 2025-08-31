@@ -32,7 +32,11 @@
         <!-- Mobile Number -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Mobile Number</mat-label>
-            <input matInput [(ngModel)]="data.mobileNumber" name="mobileNumber">
+            <input matInput [(ngModel)]="data.mobileNumber" name="mobileNumber" required pattern="^[0-9]{10}$"
+                maxlength="10">
+            <mat-error *ngIf="editForm.form.controls['mobileNumber']?.invalid">
+                Mobile number must be exactly 10 digits.
+            </mat-error>
         </mat-form-field>
 
         <!-- Virtual Number -->
@@ -44,19 +48,19 @@
         <!-- Email -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Email</mat-label>
-            <input matInput [(ngModel)]="data.email" name="email" type="email">
+            <input matInput [(ngModel)]="data.email" name="email" type="email" readonly>
         </mat-form-field>
 
         <!-- Emergency Contacts -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Emergency Contacts</mat-label>
-            <textarea matInput rows="2" [(ngModel)]="data.emergencyContacts" name="emergencyContacts"></textarea>
+            <textarea matInput rows="1" [(ngModel)]="data.emergencyContacts" name="emergencyContacts"></textarea>
         </mat-form-field>
 
         <!-- Emergency Message -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Emergency Message</mat-label>
-            <textarea matInput rows="3" [(ngModel)]="data.emergencyMessage" name="emergencyMessage"></textarea>
+            <textarea matInput rows="2" [(ngModel)]="data.emergencyMessage" name="emergencyMessage"></textarea>
         </mat-form-field>
 
         <!-- Blood Group -->
@@ -76,7 +80,7 @@
         </mat-form-field>
 
         <!-- OTP Verified -->
-        <mat-checkbox [(ngModel)]="data.isOtpVerified" name="isOtpVerified">
+        <mat-checkbox [(ngModel)]="data.isOtpVerified" name="isOtpVerified" disabled>
             OTP Verified
         </mat-checkbox>
 
