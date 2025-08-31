@@ -181,6 +181,18 @@ export class DriversComponent implements OnInit {
     });
   }
 
+  generateVirtualNumber(email: string) {
+    this.userService.generateVirtualNumber(email).subscribe({
+      next: (res) => {
+        this.toastr.success(res?.message || 'Virtual Number Generated successfully');
+        this.loadDrivers();
+      },
+      error: (err) => {
+        this.toastr.error(err.error?.message || 'Failed to generate virtual number');
+      }
+    });
+  }
+
 
   applyFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
