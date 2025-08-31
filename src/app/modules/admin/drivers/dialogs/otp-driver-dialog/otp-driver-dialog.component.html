@@ -1,13 +1,27 @@
 <h2 mat-dialog-title>Verify Driver</h2>
 
 <mat-dialog-content>
-    <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Enter OTP</mat-label>
-        <input matInput [(ngModel)]="otp" maxlength="6">
-    </mat-form-field>
+    <form #verifyForm="ngForm" class="form-container">
+        <!-- OTP -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Enter OTP</mat-label>
+            <input matInput [(ngModel)]="otp" name="otp" maxlength="6" type="text">
+        </mat-form-field>
+        <!-- Resend OTP -->
+        <div class="resend-section">
+            <span class="resend-text" (click)="resendOtp()" [class.disabled]="timer > 0">
+                Resend OTP
+            </span>
+            <span class="timer-text" *ngIf="timer > 0">
+                (available in {{ timer }}s)
+            </span>
+        </div>
+    </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" (click)="verify()">Verify</button>
+    <button mat-raised-button color="primary" (click)="verify()">
+        Verify
+    </button>
 </mat-dialog-actions>

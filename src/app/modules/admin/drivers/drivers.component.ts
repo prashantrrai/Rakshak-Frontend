@@ -141,10 +141,15 @@ export class DriversComponent implements OnInit {
       data: driver
     });
 
-    dialogRef.afterClosed().subscribe(otp => {
-      if (otp) {
-        console.log('OTP entered:', otp);
-        // TODO: call verify API with otp
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.verifyOtp({ email: result.email, otp: result.otp }).subscribe({
+          next: (res: any) => {
+            this.toastr.success(res?.message);
+            this.loadDrivers();
+          },
+          error: (err: any) => this.toastr.error(err?.error?.message || 'Something went wrong')
+        });
       }
     });
   }
