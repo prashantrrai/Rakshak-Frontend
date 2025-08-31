@@ -8,6 +8,14 @@ import { AdminService } from '../../../core/services/admin.service';
 import { UserService } from '../../../core/services/user.service';
 import * as XLSX from 'xlsx'; // Excel export
 import { MaterialModule } from '../../../shared/material/material.module';
+import { ViewDriverDialogComponent } from './dialogs/view-driver-dialog/view-driver-dialog.component';
+import { EditDriverDialogComponent } from './dialogs/edit-driver-dialog/edit-driver-dialog.component';
+import { DeleteDriverDialogComponent } from './dialogs/delete-driver-dialog/delete-driver-dialog.component';
+import { OtpDriverDialogComponent } from './dialogs/otp-driver-dialog/otp-driver-dialog.component';
+import { QrDriverDialogComponent } from './dialogs/qr-driver-dialog/qr-driver-dialog.component';
+import { BLOOD_GROUPS } from '../../../shared/constants/blood-group';
+import { DateOfBirthUtils } from '../../../shared/utility/dateofbirth.utils';
+import { ROLEID_TO_ROLE } from '../../../shared/constants/role';
 
 @Component({
   selector: 'app-drivers',
@@ -17,7 +25,7 @@ import { MaterialModule } from '../../../shared/material/material.module';
 })
 export class DriversComponent implements OnInit {
   displayedColumns: string[] = [
-    'fullName', 'email', 'dateOfBirth', 'bloodGroup', 'status', 'actions'
+    'fullName', 'email', 'dateOfBirth', 'bloodGroup', 'status', 'role', 'actions'
   ];
   dataSource = new MatTableDataSource<any>([]);
   filterValue = '';
@@ -29,7 +37,7 @@ export class DriversComponent implements OnInit {
     private adminService: AdminService,
     private userService: UserService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +52,75 @@ export class DriversComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: () => this.toastr.error('Failed to load drivers')
+    });
+  }
+
+  openViewDriver(driver: any) {
+    this.dialog.open(ViewDriverDialogComponent, {
+      width: '500px',
+      data: driver
+    });
+  }
+
+  openEditDriver(driver: any) {
+    const dialogRef = this.dialog.open(EditDriverDialogComponent, {
+      width: '600px',
+      data: { ...driver } // pass a copy so original isn’t changed until saved
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+        const payload = {
+          ...result,
+          dateOfBirth: DateOfBirthUtils.toDateString(result.dateOfBirth)
+        };
+
+        this.userService.updateProfile(payload).subscribe({
+          next: (res) => {
+            this.toastr.success(res?.message || 'Driver updated successfully');
+            this.loadDrivers();
+          },
+          error: (err) => {
+            this.toastr.error(err.error?.message || 'Failed to update driver');
+          }
+        });
+      }
+    });
+  }
+
+  openDeleteDriver(driver: any) {
+    const dialogRef = this.dialog.open(DeleteDriverDialogComponent, {
+      width: '400px',
+      data: driver
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Confirmed delete for:', driver);
+        // TODO: call delete API here
+      }
+    });
+  }
+
+  openOtpDialog(driver: any) {
+    const dialogRef = this.dialog.open(OtpDriverDialogComponent, {
+      width: '400px',
+      data: driver
+    });
+
+    dialogRef.afterClosed().subscribe(otp => {
+      if (otp) {
+        console.log('OTP entered:', otp);
+        // TODO: call verify API with otp
+      }
+    });
+  }
+
+  openQrDialog(driver: any) {
+    this.dialog.open(QrDriverDialogComponent, {
+      width: '500px',
+      data: { qrUrl: driver.qrUrl }  // driver.qrUrl from API
     });
   }
 
@@ -64,12 +141,14 @@ export class DriversComponent implements OnInit {
     XLSX.writeFile(wb, 'Drivers_List.xlsx');
   }
 
-  mapBloodGroup(id: number): string {
-    const groups: any = {
-      1: 'A+', 2: 'A-', 3: 'B+', 4: 'B-',
-      5: 'O+', 6: 'O-', 7: 'AB+', 8: 'AB-'
-    };
-    return groups[id] || 'Unknown';
+  getBloodGroupName(id: number): string {
+    const group = BLOOD_GROUPS.find(bg => bg.id === id);
+    return group ? group.name : 'Unknown';
+  }
+
+  getRoleName(id: number): string {
+    const role = ROLEID_TO_ROLE.find(role => role.id === id);
+    return role ? role.name : 'unknown';
   }
 
   // Actions

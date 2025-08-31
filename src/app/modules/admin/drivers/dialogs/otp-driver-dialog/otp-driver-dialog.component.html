@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Verify Driver</h2>
+
+<mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Enter OTP</mat-label>
+        <input matInput [(ngModel)]="otp" maxlength="6">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="verify()">Verify</button>
+</mat-dialog-actions>

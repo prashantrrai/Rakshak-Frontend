@@ -21,7 +21,7 @@
             <!-- Full Name -->
             <ng-container matColumnDef="fullName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
-                <td mat-cell *matCellDef="let driver">{{ driver.fullName }}</td>
+                <td mat-cell *matCellDef="let driver">{{ driver.firstName + ' ' + driver.lastName}}</td>
             </ng-container>
 
             <!-- Email -->
@@ -39,7 +39,7 @@
             <!-- Blood Group -->
             <ng-container matColumnDef="bloodGroup">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Blood Group</th>
-                <td mat-cell *matCellDef="let driver">{{ mapBloodGroup(driver.bloodGroupId) }}</td>
+                <td mat-cell *matCellDef="let driver">{{ getBloodGroupName(driver.bloodGroupId) }}</td>
             </ng-container>
 
             <!-- Status -->
@@ -53,23 +53,29 @@
                 </td>
             </ng-container>
 
+            <!-- Role -->
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+                <td mat-cell *matCellDef="let driver">{{ getRoleName(driver.roleId) }}</td>
+            </ng-container>
+
             <!-- Actions -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let driver" class="actions">
-                    <button mat-icon-button color="primary" (click)="viewDriver(driver)" matTooltip="View">
+                    <button mat-icon-button color="primary" (click)="openViewDriver(driver)" matTooltip="View">
                         <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button mat-icon-button color="accent" (click)="editDriver(driver)" matTooltip="Edit">
+                    <button mat-icon-button color="accent" (click)="openEditDriver(driver)" matTooltip="Edit">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button mat-icon-button color="warn" (click)="deleteDriver(driver)" matTooltip="Delete">
+                    <button mat-icon-button color="warn" (click)="openDeleteDriver(driver)" matTooltip="Delete">
                         <i class="fa-solid fa-trash"></i>
                     </button>
-                    <button mat-icon-button color="primary" (click)="verifyDriver(driver)" matTooltip="Resend OTP">
+                    <button mat-icon-button color="primary" (click)="openOtpDialog(driver)" matTooltip="Resend OTP">
                         <i class="fa-solid fa-sms"></i>
                     </button>
-                    <button mat-icon-button color="primary" (click)="showQR(driver)" matTooltip="Show VID QR">
+                    <button mat-icon-button color="primary" (click)="openQrDialog(driver)" matTooltip="Show VID QR">
                         <i class="fa-solid fa-qrcode"></i>
                     </button>
                     <button mat-icon-button color="warn" (click)="downloadPDF(driver)" matTooltip="Download PDF">

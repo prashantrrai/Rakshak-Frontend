@@ -1,0 +1,39 @@
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* spacing between inputs */
+    padding-top: 10px;
+    min-width: 400px;
+    /* control dialog width */
+    max-width: 600px;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 8px;
+    /* small spacing for safety */
+}
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+}
+
+mat-form-field .mat-mdc-text-field-wrapper {
+    padding: 0 8px !important;
+    /* reduce inside padding */
+    min-height: 40px;
+    /* reduce tall height */
+}
+
+mat-dialog-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+button[mat-raised-button] {
+    min-width: 90px;
+    border-radius: 6px;
+}

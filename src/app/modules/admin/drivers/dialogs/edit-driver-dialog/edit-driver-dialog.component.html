@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>Edit Driver</h2>
+
+<mat-dialog-content>
+    <form #editForm="ngForm" class="form-container">
+
+        <!-- First Name -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="data.firstName" name="firstName" required>
+        </mat-form-field>
+
+        <!-- Middle Name -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Middle Name</mat-label>
+            <input matInput [(ngModel)]="data.middleName" name="middleName">
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="data.lastName" name="lastName" required>
+        </mat-form-field>
+
+        <!-- Date of Birth -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="dobPicker" [(ngModel)]="data.dateOfBirth" name="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Mobile Number -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput [(ngModel)]="data.mobileNumber" name="mobileNumber">
+        </mat-form-field>
+
+        <!-- Virtual Number -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Virtual Number</mat-label>
+            <input matInput [(ngModel)]="data.virtualNumber" name="virtualNumber" readonly>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="data.email" name="email" type="email">
+        </mat-form-field>
+
+        <!-- Emergency Contacts -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Emergency Contacts</mat-label>
+            <textarea matInput rows="2" [(ngModel)]="data.emergencyContacts" name="emergencyContacts"></textarea>
+        </mat-form-field>
+
+        <!-- Emergency Message -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Emergency Message</mat-label>
+            <textarea matInput rows="3" [(ngModel)]="data.emergencyMessage" name="emergencyMessage"></textarea>
+        </mat-form-field>
+
+        <!-- Blood Group -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Blood Group</mat-label>
+            <mat-select [(ngModel)]="data.bloodGroupId" name="bloodGroupId">
+                <mat-option *ngFor="let bg of BLOOD_GROUPS" [value]="bg.id">{{ bg.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Role -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Role</mat-label>
+            <mat-select [(ngModel)]="data.roleId" name="roleId">
+                <mat-option *ngFor="let role of ROLEID_TO_ROLE" [value]="role.id">{{ role.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- OTP Verified -->
+        <mat-checkbox [(ngModel)]="data.isOtpVerified" name="isOtpVerified">
+            OTP Verified
+        </mat-checkbox>
+
+        <!-- Active -->
+        <mat-checkbox [(ngModel)]="data.isActive" name="isActive">
+            Active
+        </mat-checkbox>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">
+        Save
+    </button>
+</mat-dialog-actions>
