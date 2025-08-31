@@ -84,7 +84,7 @@
                     <button mat-icon-button color="primary" (click)="openQrDialog(driver)" matTooltip="Show VID QR">
                         <i class="fa-solid fa-qrcode"></i>
                     </button>
-                    <button mat-icon-button color="warn" (click)="downloadPDF(driver)" matTooltip="Download PDF">
+                    <button mat-icon-button color="warn" (click)="downloadPDF(driver?.email)" matTooltip="Download PDF">
                         <i class="fa-solid fa-file-pdf"></i>
                     </button>
                 </td>

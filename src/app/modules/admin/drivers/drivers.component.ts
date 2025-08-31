@@ -17,6 +17,7 @@ import { BLOOD_GROUPS } from '../../../shared/constants/blood-group';
 import { DateOfBirthUtils } from '../../../shared/utility/dateofbirth.utils';
 import { ROLEID_TO_ROLE } from '../../../shared/constants/role';
 import { AddDriverDialogComponent } from './dialogs/add-driver-dialog/add-driver-dialog.component';
+import { PdfService } from '../../../core/services/pdf.service';
 
 @Component({
   selector: 'app-drivers',
@@ -39,6 +40,7 @@ export class DriversComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private toastr: ToastrService,
+    private pdfService: PdfService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class DriversComponent implements OnInit {
     });
   }
 
+  // Actions.
   openAddDriver() {
     const dialogRef = this.dialog.open(AddDriverDialogComponent, {
       width: '500px',
@@ -158,6 +161,27 @@ export class DriversComponent implements OnInit {
     });
   }
 
+  downloadPDF(email: string) {
+    this.pdfService.getStickerPdfByEmail(email).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `VID-Sticker-${Date.now()}.pdf`; // filename
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.toastr.success('PDF downloaded successfully'); // success message
+      },
+      error: (err) => {
+        console.log(err);
+
+        console.error('Error downloading PDF:', err);
+        this.toastr.error('Virtual Number is not Generated yet. Please try again.');
+      }
+    });
+  }
+
+
   applyFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = this.filterValue;
@@ -183,25 +207,5 @@ export class DriversComponent implements OnInit {
   getRoleName(id: number): string {
     const role = ROLEID_TO_ROLE.find(role => role.id === id);
     return role ? role.name : '';
-  }
-
-  // Actions
-  viewDriver(driver: any) { }
-  editDriver(driver: any) { }
-  deleteDriver(driver: any) {
-    if (confirm(`Delete ${driver.fullName}?`)) {
-      this.userService.deleteUser(driver.virtualNumber).subscribe({
-        next: () => {
-          this.toastr.success('Driver deleted');
-          this.loadDrivers();
-        },
-        error: () => this.toastr.error('Delete failed')
-      });
-    }
-  }
-  verifyDriver(driver: any) { }
-  showQR(driver: any) { }
-  downloadPDF(driver: any) {
-    window.open(`/api/Driver/Generate-Driver-Pdf/${driver.virtualNumber}`, '_blank');
   }
 }
