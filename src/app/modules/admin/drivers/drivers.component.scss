@@ -5,35 +5,63 @@
     .toolbar {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 1rem;
 
         .search-field {
             width: 300px;
         }
 
-        i {
+        i,
+        .mat-icon {
             margin-right: 6px;
+            font-size: 16px; // default toolbar icon size
         }
+
+        .mat-mdc-icon-button {
+            --mdc-icon-button-icon-size: 18px;
+            --mdc-icon-button-size: 36px;
+            --mdc-icon-button-state-layer-size: 36px;
+        }
+    }
+
+    .badge-active,
+    .badge-inactive {
+        padding: 1px 2px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 500;
+        display: inline-block;
+        text-align: center;
+        min-width: 60px;
+        color: #fff;
     }
 
     .badge-active {
         background: #4caf50;
-        color: white;
-        padding: 3px 8px;
-        border-radius: 12px;
-        font-size: 12px;
     }
 
     .badge-inactive {
         background: #f44336;
-        color: white;
-        padding: 3px 8px;
-        border-radius: 12px;
-        font-size: 12px;
     }
 
-    .actions button {
-        margin-right: 4px;
+    .actions {
+        // display: flex;
+        gap: 4px;
+
+        button,
+        .mat-mdc-icon-button {
+            margin: 0;
+            padding: 4px;
+        }
+
+        i,
+        .mat-icon {
+            font-size: 16px !important;
+            width: 18px !important;
+            height: 18px !important;
+            line-height: 18px !important;
+        }
     }
 }
 
@@ -43,6 +71,6 @@
 }
 
 table {
-    min-width: 1000px;
-    /* or based on number of columns */
+    width: 100%;
+    border-spacing: 0;
 }
